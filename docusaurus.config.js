@@ -18,9 +18,9 @@ const config = {
   // ---------- GitHub Pages ----------
   // Site public: https://jademichel.github.io/dbmarket/
   url: 'https://jademichel.github.io',
-  baseUrl: '/dbmarket/',
+  baseUrl: '/noname_app/',
   organizationName: 'jademichel', // ton nom d’utilisateur GitHub
-  projectName: 'dbmarket',        // nom du repo
+  projectName: 'noname_app',        // nom du repo
   trailingSlash: false,           // évite des 404 de chemins
 
   onBrokenLinks: 'throw',
