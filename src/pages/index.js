@@ -1,31 +1,32 @@
 import React, {useEffect} from 'react';
 import Head from '@docusaurus/Head';
+import Layout from '@theme/Layout';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 
 export default function Home() {
   const cssHref = useBaseUrl('/landing/styles.css');
   const jsSrc   = useBaseUrl('/landing/script.js');
-  const baseUrl = useBaseUrl('/'); // e.g. "/dbmarket/"
+  const baseUrl = useBaseUrl('/'); // e.g. "/noname_app/"
 
   useEffect(() => {
     if (window.__DBMARKET_SCRIPT_APPENDED) return;
     const s = document.createElement('script');
     s.src = jsSrc;
-    s.async = false;
+    s.defer = true;             // mieux que async ici
     document.body.appendChild(s);
     window.__DBMARKET_SCRIPT_APPENDED = true;
   }, [jsSrc]);
 
   return (
-    <>
+    <Layout>
       <Head>
         <title>From Noise to Trust</title>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        {/* Ensure script.js can read baseUrl in React mode */}
+        {/* pour que script.js sache le baseUrl si besoin */}
         <meta name="docusaurus:baseUrl" content={baseUrl} />
         <link rel="stylesheet" href={cssHref} />
-        {/* Safety belt if a theme layout ever sneaks in */}
+        {/* masquer la navbar en douceur */}
         <style>{`
           .navbar, .navbar--fixed-top { display: none !important; }
           .main-wrapper { padding-top: 0 !important; }
@@ -33,7 +34,7 @@ export default function Home() {
         `}</style>
       </Head>
 
-      {/* Landing canvas + overlay */}
+      {/* Landing */}
       <canvas id="scene"></canvas>
 
       <div className="overlay" aria-live="polite">
@@ -50,6 +51,6 @@ export default function Home() {
       </div>
 
       <div id="scroll-spacer" aria-hidden="true"></div>
-    </>
+    </Layout>
   );
 }
