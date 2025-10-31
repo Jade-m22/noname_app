@@ -2,174 +2,179 @@
 id: overview
 title: Overview
 sidebar_position: 1
-description: Conceptual introduction to the Debate Market — a system for structuring and preserving reasoning on-chain.
+description: Overview of the Debate Market — a system where structured debate becomes persistent knowledge on Intuition.
 ---
 
 # Overview — Debate Market
 
 ## Introduction
 
-The **Debate Market** proposes a new way to conduct debates online:  
-not as fleeting exchanges or social content, but as **structured knowledge**.
+Most online debate today dissolves into the feed.
 
-Today, most debates:
+Arguments appear in threads, videos, comments, or chats, then vanish.  
+Strong ideas are forgotten.  
+Weak ideas reappear endlessly.  
+There is no memory, no accumulation, no refinement.
 
-- happen in isolated threads,
-- disappear in feeds,
-- rely on popularity dynamics,
-- and produce no cumulative insight.
+This project takes a different approach:  
+**turn debate into durable, structured knowledge.**
 
-This system aims to reverse that pattern.
+Instead of opinions floating through timelines, each contribution becomes:
 
-Here, every contribution becomes:
+- a clear, structured claim,
+- linked logically to other ideas,
+- recorded on-chain,
+- integrated into the Intuition graph.
 
-- a **claim** — a structured statement,
-- linked to other claims through explicit **logical relationships**,
-- recorded in a persistent, shared **knowledge network**.
-
-Instead of debating into the void, participants **construct a growing reasoning graph**.
-
----
-
-## Core Idea
-
-A debate begins with a **central question or proposition**.  
-Participants contribute positions, justifications, objections, refinements, and references.
-
-Each element is recorded as a **claim**, and linked to others using explicit relationships such as:
-
-- supports
-- opposes
-- qualifies
-- depends on
-- contradicts
-- clarifies
-
-This transforms debates from free-form opinion streams into **composable reasoning structures**.
-
-The goal is not simply to “express a viewpoint”,  
-but to **build a persistent map of arguments and counter-arguments**.
+The goal is not simply to speak —  
+but to **build a persistent memory of reasoning.**
 
 ---
 
-## Representation Model
+## Core Concept
 
-### Human-readable structure
+A debate begins with a **proposition**.
 
-Debates are first displayed in a **clear logical structure**:
+Participants can then contribute:
 
-- Central claim → supporting arguments, opposing arguments, nuances, counterpoints.
-- Users navigate layers of reasoning, not chaotic comment chains.
-- Every contribution is anchored to a specific logical function.
+- supporting arguments,
+- objections,
+- nuance,
+- conditional framing,
+- counterexamples,
+- references or evidence.
 
-This offers the clarity of well-moderated debate platforms,  
-but with the rigor of formalized thought.
+Every position must be **justified**.  
+No binary “yes/no” without explanation —  
+every stance becomes an argument with reasoning.
 
-### Graph representation (on-chain knowledge)
+Each justification is turned into a **claim**,  
+and each logical relation (*supports*, *refutes*, *qualifies*, etc.) is recorded as a **triple** on Intuition.
 
-Once recorded, these elements form a **knowledge graph** where:
+We transform:
+
+- a discussion into a **network of ideas**,  
+- an argument into a **verifiable knowledge element**,  
+- an opinion into a **traceable reasoning unit**.
+
+---
+
+## Representation
+
+### Human-facing structure
+
+The debate interface presents a clear hierarchy of reasoning:
+
+- central idea,
+- supporting points,
+- opposing points,
+- nuance and rebuttals,
+- contextual clarifications.
+
+The experience mirrors natural debate logic —  
+you assert, justify, challenge, and respond.
+
+Its purpose is **clarity and intellectual discipline**,  
+not virality or noise.
+
+### On-chain knowledge graph
+
+Once recorded on-chain:
 
 - each claim becomes a node,
-- each relation becomes an explicit edge,
-- claims can be **reused across multiple debates**,
-- the network grows as reasoning compounds.
+- each logical relation becomes an explicit edge,
+- arguments can be reused across new debates,
+- the network grows as reasoning compounds over time.
 
-Rather than disappearing, debates **accumulate into a shared memory of logic and justification**.
+This produces **long-lived, navigable, composable knowledge**,  
+instead of disappearing discussions.
 
-This enables:
-
-- reasoning reuse,
-- knowledge propagation,
-- long-term analysis of ideas,
-- and interoperability with computational systems (e.g., AI agents).
+The debate no longer ends when people stop talking —  
+it **persists, evolves, and strengthens**.
 
 ---
 
-## Why this matters
+## How Claims Are Generated
 
-This approach allows us to:
+Two contribution modes are being explored:
 
-- **preserve debates** instead of losing them,
-- **reduce duplication** across discussions,
-- **locate true points of disagreement**,
-- **identify converging or emerging consensus**,
-- **make reasoning machine-navigable**,
-- and **build a collective knowledge base over time**.
+### 1. Manual input
 
-In short:  
-debate becomes **a construction process**, not a performance or a content flow.
+Users directly create claims and define their relationships.
 
----
+- full precision
+- transparent logic
+- ideal for advanced contributors and researchers
 
-## Interaction Modes (Under Exploration)
+### 2. Assisted extraction (AI-supported)
 
-Two methods of contribution are currently being evaluated:
-
-### Manual structured mode
-
-Users directly create:
-
-- a claim,
-- its classification (support, oppose, nuance…),
-- and its relationships to existing claims.
-
-This mode prioritizes **precision and expert control**,  
-suited for analytical users, researchers, and power-contributors.
-
-### Assisted mode (agent-aided)
-
-Users write natural language arguments.  
+Users write in natural language.  
 An agent extracts:
 
-- claims,
-- relationships,
-- and suggested structure.
+- individual claims,
+- their orientation (support / oppose / nuance),
+- suggested logical links.
 
-The user then **reviews, edits, deletes, or confirms** the suggestions before recording.
+The user **reviews, edits, and confirms** before recording.
 
-This preserves **accessibility and expressiveness**,  
-while maintaining structure and rigor.
+The agent helps formalize thought,  
+while **the human remains the final authority**.
 
-Human judgment remains central; the agent accelerates the workflow.
-
----
-
-## Future Direction
-
-The current focus is on:
-
-- argument modeling,
-- long-term knowledge accumulation,
-- and enabling structured, durable reasoning.
-
-In later stages, debates tied to future-verifiable outcomes may:
-
-- be monitored over time,
-- incorporate resolution mechanisms,
-- and explore incentive or confidence layers.
-
-For now, the priority is **building the reasoning layer first** —  
-a durable foundation for collective intelligence.
+This brings structure without sacrificing accessibility.
 
 ---
 
-## Glossary
+## Why This Matters
 
-| Term | Definition |
-|---|---|
-Claim | A structured statement that can be debated or connected to other ideas. |
-Relation | A logical link between claims (e.g., supports, refutes, qualifies). |
-Triple | Formal statement structure: *Subject → Relation → Object*. |
-Knowledge graph | Network of claims and relationships that can be reused and expanded. |
-Argument structure | Organized representation of positions, counterpoints, and justification. |
-Assisted agent | AI system helping extract and propose claims/relations from natural language. |
-User validation | Human review and approval before final on-chain recording. |
+This approach enables us to:
+
+- **preserve arguments** rather than lose them,
+- **reuse and refine reasoning** rather than repeat it,
+- **identify recurring patterns** across debates,
+- **locate real points of disagreement**, not just reactions,
+- **distinguish robust arguments from weak ones** over time,
+- **build a public reasoning graph**,
+- and make human logic **machine-navigable and analyzable**.
+
+In short:
+
+> Debate stops being consumption.  
+> It becomes **knowledge construction**.
+
+Instead of information decay, we get **cognitive accumulation**.
+
+This is a shift from debate as entertainment  
+to debate as **infrastructure for collective intelligence**.
 
 ---
 
-### Summary
+## Vision
 
-The Debate Market transforms debates into **persistent, structured, linkable knowledge**.  
-Arguments do not vanish — they **compose**, **accumulate**, and **strengthen** over time,  
-forming an evolving architecture of reasoning shared across users and systems.
+The initial phase builds the **reasoning and memory layer**.
 
+As debates accumulate:
+
+- themes emerge,
+- strong ideas gain stability,
+- weak ones erode or get replaced,
+- consistent, rigorous thinkers stand out,
+- collective understanding deepens.
+
+Later phases may introduce:
+
+- connection to real-world outcomes,
+- validation and resolution mechanisms,
+- incentives for epistemic rigor,
+- emergent “oracles” — contributors whose reasoning repeatedly proves reliable,
+- and eventually, optional predictive and economic layers.
+
+But first:  
+**structure the thinking.**
+
+Before prediction, we need comprehension.  
+Before incentives, we need logic.  
+Before automation, we need formalization.
+
+This layer is that foundation.
+
+---
