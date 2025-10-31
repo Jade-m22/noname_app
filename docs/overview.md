@@ -2,134 +2,174 @@
 id: overview
 title: Overview
 sidebar_position: 1
-description: An on-chain debate market where ideas are structured, staked, and proven in public.
+description: Conceptual introduction to the Debate Market — a system for structuring and preserving reasoning on-chain.
 ---
 
-# Overview
+# Overview — Debate Market
 
-Imagine an interface where you can start **any debate you want**.
+## Introduction
 
-Not just voting *yes* or *no*.  
-Not throwing opinions into a social feed that disappears tomorrow.
+The **Debate Market** proposes a new way to conduct debates online:  
+not as fleeting exchanges or social content, but as **structured knowledge**.
 
-No.
+Today, most debates:
 
-A place where you can:
+- happen in isolated threads,
+- disappear in feeds,
+- rely on popularity dynamics,
+- and produce no cumulative insight.
 
-- make a clear claim  
-- explain **why** you believe it  
-- connect arguments together  
-- and **stake** to show conviction  
+This system aims to reverse that pattern.
 
-A space where ideas are not only expressed,  
-but **weighted**, **challenged**, **mapped**, and **remembered**.
+Here, every contribution becomes:
 
----
+- a **claim** — a structured statement,
+- linked to other claims through explicit **logical relationships**,
+- recorded in a persistent, shared **knowledge network**.
 
-## 🌐 An on-chain debate market
-
-In this interface, debate isn’t noise or ego warfare.
-
-It’s an **on-chain market for arguments**.
-
-- Every position becomes a **claim**  
-- Every justification becomes a **relation**  
-- Every stake becomes a **signal of belief**  
-- Every contribution builds a **living knowledge layer**
-
-Here, the question is no longer:
-
-> Who speaks the loudest?
-
-But instead:
-
-> Who is right — and who is willing to stand behind it?
-
-This is not a vote.  
-This is not a like.  
-It is **skin in the game**.
-
-Ideas earn credibility through **reason + economic backing**,  
-not virality or volume.
+Instead of debating into the void, participants **construct a growing reasoning graph**.
 
 ---
 
-## 🧠 Knowledge becomes structure
+## Core Idea
 
-In this system, arguments don’t vanish in a feed.
+A debate begins with a **central question or proposition**.  
+Participants contribute positions, justifications, objections, refinements, and references.
 
-They become **structured knowledge**:
+Each element is recorded as a **claim**, and linked to others using explicit relationships such as:
 
-- Each argument = a verifiable node  
-- Each link = meaning and context  
-- Each stake = conviction in the open  
-- The network = a collective map of truth, uncertainty, and challenge  
+- supports
+- opposes
+- qualifies
+- depends on
+- contradicts
+- clarifies
 
-The more people test, refine, and stress an idea,  
-the more it finds its place in a **shared understanding of the world**.
+This transforms debates from free-form opinion streams into **composable reasoning structures**.
 
----
-
-## 🎯 Today: the Debate Market
-
-We start with:
-
-- ✅ launching debates  
-- ✅ structuring arguments  
-- ✅ staking to signal conviction  
-- ✅ watching the strongest reasoning rise  
-- ✅ building a public, trust-weighted knowledge layer  
-
-No oracle.  
-No prediction markets.  
-No automated resolution.
-
-Just **reasoning + conviction**, tracked on-chain.
+The goal is not simply to “express a viewpoint”,  
+but to **build a persistent map of arguments and counter-arguments**.
 
 ---
 
-## 🔮 Tomorrow: prediction + emergent oracles
+## Representation Model
 
-But imagine what comes next.
+### Human-readable structure
 
-Some debates point to the future.  
-Some claims can *become* prediction markets.  
-Their outcomes could be resolved not by a central authority,  
-but by **oracles who emerge naturally from the graph** —  
-people whose accuracy has been **demonstrated over time**.
+Debates are first displayed in a **clear logical structure**:
 
-A truth economy, where trust is **earned**,  
-based on arguments that stood up,  
-insights proven early,  
-and beliefs backed publicly.
+- Central claim → supporting arguments, opposing arguments, nuances, counterpoints.
+- Users navigate layers of reasoning, not chaotic comment chains.
+- Every contribution is anchored to a specific logical function.
+
+This offers the clarity of well-moderated debate platforms,  
+but with the rigor of formalized thought.
+
+### Graph representation (on-chain knowledge)
+
+Once recorded, these elements form a **knowledge graph** where:
+
+- each claim becomes a node,
+- each relation becomes an explicit edge,
+- claims can be **reused across multiple debates**,
+- the network grows as reasoning compounds.
+
+Rather than disappearing, debates **accumulate into a shared memory of logic and justification**.
+
+This enables:
+
+- reasoning reuse,
+- knowledge propagation,
+- long-term analysis of ideas,
+- and interoperability with computational systems (e.g., AI agents).
+
+---
+
+## Why this matters
+
+This approach allows us to:
+
+- **preserve debates** instead of losing them,
+- **reduce duplication** across discussions,
+- **locate true points of disagreement**,
+- **identify converging or emerging consensus**,
+- **make reasoning machine-navigable**,
+- and **build a collective knowledge base over time**.
+
+In short:  
+debate becomes **a construction process**, not a performance or a content flow.
 
 ---
 
-## 🪄 In one line
+## Interaction Modes (Under Exploration)
 
-> A space where debate isn’t performance —  
-> it’s knowledge construction.  
-> Where you don’t just speak —  
-> **you stand behind your ideas.**  
-> And where truth can eventually be  
-> **predicted, weighted, and verified**  
-> by a collective intelligence encoded on-chain.
+Two methods of contribution are currently being evaluated:
 
-Welcome to the **Debate Market**.  
-The first on-chain market for reasoning.
+### Manual structured mode
+
+Users directly create:
+
+- a claim,
+- its classification (support, oppose, nuance…),
+- and its relationships to existing claims.
+
+This mode prioritizes **precision and expert control**,  
+suited for analytical users, researchers, and power-contributors.
+
+### Assisted mode (agent-aided)
+
+Users write natural language arguments.  
+An agent extracts:
+
+- claims,
+- relationships,
+- and suggested structure.
+
+The user then **reviews, edits, deletes, or confirms** the suggestions before recording.
+
+This preserves **accessibility and expressiveness**,  
+while maintaining structure and rigor.
+
+Human judgment remains central; the agent accelerates the workflow.
 
 ---
 
-## 🧯 One more thing…
+## Future Direction
 
-And yes —  
-one day, when your ideas prove right  
-and your conviction pays off…
+The current focus is on:
 
-> **you can actually earn money.**  
-> *(via Intuition’s incentive layer)*
+- argument modeling,
+- long-term knowledge accumulation,
+- and enabling structured, durable reasoning.
 
-Not for shouting the loudest —  
-but for **being right early and proving it**.
+In later stages, debates tied to future-verifiable outcomes may:
+
+- be monitored over time,
+- incorporate resolution mechanisms,
+- and explore incentive or confidence layers.
+
+For now, the priority is **building the reasoning layer first** —  
+a durable foundation for collective intelligence.
 
 ---
+
+## Glossary
+
+| Term | Definition |
+|---|---|
+Claim | A structured statement that can be debated or connected to other ideas. |
+Relation | A logical link between claims (e.g., supports, refutes, qualifies). |
+Triple | Formal statement structure: *Subject → Relation → Object*. |
+Knowledge graph | Network of claims and relationships that can be reused and expanded. |
+Argument structure | Organized representation of positions, counterpoints, and justification. |
+Assisted agent | AI system helping extract and propose claims/relations from natural language. |
+User validation | Human review and approval before final on-chain recording. |
+
+---
+
+### Summary
+
+The Debate Market transforms debates into **persistent, structured, linkable knowledge**.  
+Arguments do not vanish — they **compose**, **accumulate**, and **strengthen** over time,  
+forming an evolving architecture of reasoning shared across users and systems.
+
