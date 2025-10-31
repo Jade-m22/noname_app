@@ -2,99 +2,72 @@
 id: vision
 title: Vision
 sidebar_position: 2
-description: Long-term vision — debate as a foundation for open reasoning, emergent oracles, and intelligence.
+description: Long-term vision — a persistent structure for shared reasoning with emergent intelligence and incentive layers.
 ---
 
 # Vision
 
-## From debate to shared cognition
+## Goal
 
-The long-term goal is not just to debate but to build **a public memory of reasoning**.
+The objective is to build **a persistent layer for human reasoning** —  
+where arguments do not vanish, but evolve, connect, and compound.
 
-A system where ideas evolve instead of reset.  
-Where logic is visible, traceable, and auditable.  
-Where truth emerges through structure and time, not attention.
+The system is not here to decide what is correct;  
+it exists to **organize how ideas develop over time**.
 
----
+## Recursive structure
 
-## Recursive understanding
+- Every claim can become a new debate
+- Debates branch, deepen, and reference each other
+- Reasoning becomes **navigable and multi-layered**
+- Nothing is lost — thought becomes **continuity**
 
-Every claim can be expanded into a new debate.  
-Arguments branch into deeper arguments.  
-The graph becomes **a living architecture of thought**.
+## Process of refinement
 
-This supports:
+Over time:
 
-- depth
-- exploration
-- intellectual scaffolding
-- cumulative understanding
+- Some lines of reasoning gain strength
+- Others fade or remain unresolved
+- Disagreements become structured, not noisy
+- Progress is measured by **clarity and connection**, not volume
 
-Reasoning, not reaction.
+The goal is not to close discussion but to **map its evolution**.
 
----
+## Possible extensions
 
-## A protocol for epistemic progress
+These are **possible future layers**, not required for the core system:
 
-As debates grow:
+### Debate → Prediction layer
+For debates tied to real future outcomes:
+- A debate can convert into a prediction market
+- With a defined resolution date
 
-- consistent reasoning strengthens
-- weak logic dissolves
-- convergence and divergence become visible
-- knowledge advances
+### Resolution by credible contributors
+Resolution can be informed by participants who:
+- Have demonstrated reliability through consistent contributions
+- Show domain expertise through their accumulated triples
+- Are trusted via network relationships
 
-Not through authority. Through **open, structured reasoning**.
+Oracles **emerge from the graph**, not by appointment.
 
----
+### Cognitive identity & agent support
+Over time, the system can support:
 
-## Extensions the system enables
+- Personal reasoning profiles
+- Navigation based on your logic style
+- AI that understands how you think, not just what you type
+- Memory of positions, arguments, and evolution
 
-This foundation allows natural future layers:
+The platform can become a layer of **cognitive identity**, not just a discussion space.
 
-### ✅ Debate → prediction market
+## Ambition
 
-When a debate concerns a future outcome:
+1. Structure reasoning  
+2. Preserve and connect arguments  
+3. Enable exploration and reuse  
+4. Let ideas evolve instead of reset  
+5. Surface reliability and expertise naturally  
+6. Add predictive and incentive layers when meaningful  
+7. Support intelligent agents that operate on structured thought  
 
-- it can evolve into a prediction market
-- with a resolution date
-- and resolution dynamics tied to credibility signals
-
-### ✅ Emergent oracles
-
-Instead of central judges, the system can surface **credible resolvers** based on:
-
-- trust relationships
-- verified contribution history
-- topic-specific expertise inferred from claims
-
-The graph itself can identify who is reliable in what domain.
-
-### ✅ AI-reasoning layer
-
-Over time, this system enables:
-
-- AI that understands how you think
-- personal reasoning profiles
-- prediction models based on argument structure
-- agents trained on *your logic*, not just your data
-
-The platform becomes a **cognitive identity**, not just a posting space.
-
----
-
-## The philosophical arc
-
-1. **Structure thinking**
-2. **Record reasoning**
-3. **Accumulate insight**
-4. **Resolve through evidence**
-5. **Let expertise emerge**
-6. **Enable predictive truth markets**
-7. **Give AI a map of human reasoning**
-
-The end game is a network that learns how humans think —  
-and lets humans think better through structure.
-
----
-
-When reasoning is structured, conviction becomes more than expression.
+A system where **thinking does not vanish — it compounds.**

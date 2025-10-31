@@ -2,111 +2,86 @@
 id: overview
 title: Overview
 sidebar_position: 1
-description: Overview of the Debate Market — where debate becomes structured, persistent reasoning on Intuition.
+description: Overview of the Debate Market — transforming debate into structured, persistent reasoning.
 ---
 
 # Overview — Debate Market
 
-## Why this exists
+## Why
 
-Online debate today dissolves into feeds and comments.  
-Ideas crash, scatter, and disappear.  
-Nothing compounds into understanding.
+Online debates typically vanish into feeds, repeat endlessly, and do not accumulate shared understanding.  
+Nothing is structured, nothing persists, and nothing improves collectively.
 
-This project proposes a different model:
-
-**Debate becomes structured reasoning that persists, learns, and grows.**
-
-Every contribution becomes a piece of knowledge, not a passing message.
+This system proposes a different model: **turn debate into structured, reusable reasoning.**  
+Each contribution enriches a shared memory rather than disappearing.
 
 ---
 
-## Core mechanic
+## Core concept
 
-A debate begins with a **clear assertion**.  
-Participants then add claims that are:
-
-- **For**
-- **Against**
-
-Each contribution must take a stance and justify it.
-
-No isolated comments. Every statement enters a reasoning structure.
-
-And any claim can itself become the root of a new debate, allowing reasoning to unfold recursively.
-
-This creates **branching, navigable thought**, not linear argument threads.
+- A debate starts with a **clear assertion**
+- Participants add claims **for** or **against**
+- A debate can also be opened **without taking a position** at first
+- **Each claim = a triple on-chain** (Subject → Relation → Object)
+- Any claim can become the starting point for a new debate
+- Reasoning grows **recursively**, not linearly
 
 ---
 
-## How it appears to users
+## User experience
 
 Users see:
 
-- a starting assertion
-- supporting claims
-- opposing claims
-- deeper layers of argument and counter-argument
+- The initial assertion
+- For-claims and against-claims
+- Deeper levels of responses and justifications
+- A structured reasoning map rather than a scrolling feed
 
-A map of thinking, not a pile of reactions.
-
----
-
-## How it works underneath
-
-Each claim becomes a node recorded on Intuition, connected to prior reasoning.
-
-The result:
-
-- arguments persist,
-- logic becomes navigable,
-- insights accumulate rather than reset.
-
-Debate turns into **public cognitive memory**.
+The interface encourages clarity and connection, not reaction.
 
 ---
 
-## Contributing
+## How it works
 
-Two modes:
+- A claim is directly stored **as a triple**
+- The system records relationships of meaning, not just text
+- Arguments accumulate and connect across debates
+- The result is a shared, navigable memory of reasoning
 
-- **Manual** — articulate claims directly
-- **Assisted** — write freely; an agent extracts and structures claims (user verifies)
-
-Human judgment stays central.  
-The system simply provides structure.
-
----
-
-## What this unlocks
-
-This model enables:
-
-- reusable arguments across topics
-- visible evolution of ideas
-- collective refinement instead of repetition
-- emergence of stable lines of thought
-
-Debate shifts from expression to **knowledge construction**.
+Debate becomes **a growing structure of thought**, not an ephemeral thread.
 
 ---
 
-## Learn more
+## Contribution modes
 
-This page explains *how the system works*.  
-For where it is going — including prediction markets, oracle emergence, and AI-reasoning layers — see:
+### Manual mode
+Write claims directly and assign them as **for** or **against**.
+
+### Assisted mode
+Write naturally; the system helps transform free text into structured claims:
+
+1. User types an argument in natural language  
+2. The assistant extracts proposed claims and positions (for/against)  
+3. The user reviews, edits, approves, or rejects each suggestion  
+4. Approved claims are saved as triples  
+
+The assistant helps organize thoughts — **the human remains the decision-maker**.
+
+---
+
+## What this enables
+
+- Reuse of arguments across debates
+- Accumulation of reasoning instead of repeating it
+- Visibility on how ideas develop over time
+- Emergence of stable reasoning paths or abandoned ones
+- Debate becomes **a tool for building knowledge**, not just expressing opinion
+
+---
+
+## Future directions
+
+For long-term extensions such as prediction layers,  
+emergent resolution participants, and AI agents that understand your reasoning style, see:
 
 👉 **[Vision](./vision.md)**
-
----
-
-## One more thing…
-
-Those who support strong arguments early may later be rewarded through the protocol’s incentive mechanisms.
-
-But the order is intentional:
-
-**Reason first.  
-Structure first.  
-Truth emerging over time.  
-And only then — reward for early clarity and conviction.**
