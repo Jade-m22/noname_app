@@ -26,6 +26,28 @@ Each contribution enriches a shared memory rather than disappearing.
 - Any claim can become the starting point for a new debate
 - Reasoning grows **recursively**, not linearly
 
+```mermaid
+flowchart TD
+    U["User"] -- Manual --> C["Claim FOR or AGAINST"]
+    U -- Assisted --> TXT["Free text input"]
+    TXT --> AI["Assistant suggests claims"]
+    AI --> VAL["User reviews / edits / approves"]
+    VAL --> C
+    S["Debate"] --> P["FOR claims"]
+    S --> N["AGAINST claims"]
+    C --> T["Claim = Triple on-chain"]
+    P --> T
+    N --> T
+    T --> ND["This claim can become a new debate"]
+    T --> G["Knowledge graph"]
+    ND --> S2["New debate"]
+    G --> REUSE["Reuse in other debates"]
+    G --> NAV["Browse reasoning paths"]
+    G --> PM["If future outcome → Prediction market"]
+    G --> AG["Agents learn reasoning style"]
+    PM --> OR["Resolution by credible participants (trust + expertise)"]
+```
+
 ---
 
 ## User experience

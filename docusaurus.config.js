@@ -10,7 +10,6 @@ const config = {
   future: { v4: true },
 
   // ---------- GitHub Pages ----------
-  // Site public: https://jademichel.github.io/noname_app/
   url: 'https://jademichel.github.io',
   baseUrl: '/noname_app/',
   organizationName: 'jademichel',
@@ -22,6 +21,11 @@ const config = {
   i18n: {
     defaultLocale: 'en',
     locales: ['en'],
+  },
+
+  themes: ['@docusaurus/theme-mermaid'],
+  markdown: {
+    mermaid: true,
   },
 
   presets: [
