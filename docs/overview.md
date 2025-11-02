@@ -107,3 +107,17 @@ For long-term extensions such as prediction layers,
 emergent resolution participants, and AI agents that understand your reasoning style, see:
 
 👉 **[Vision](./vision.md)**
+
+---
+
+## A concrete example:
+
+<div style={{marginTop: '1rem', marginBottom: '2rem'}}>
+  <iframe
+    style={{border: '1px solid #ddd', borderRadius: '8px'}}
+    width="100%"
+    height="500"
+    src="https://whimsical.com/embed/3T7sNnEitu9E97c7mQai6D"
+    allow="fullscreen"
+  ></iframe>
+</div>

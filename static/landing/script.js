@@ -6,7 +6,7 @@
     (__BASEURL__.endsWith('/') ? __BASEURL__.slice(0, -1) : __BASEURL__) +
     (p.startsWith('/') ? p : '/' + p);
 
-  // Config 
+  // Config
   const READ_MORE_HREF = joinBase('/docs/overview');
   const END_SLOW_ZOOM_SPEED = 0.004;
   const END_SLOW_DRIFT = 0.0018;
@@ -16,19 +16,22 @@
   const MEGA_NODE_RATE = 0.12;
   const BG_POINTS_ALPHA = 0.14;
 
-  const ANCHOR_T_TITLE = 0.30, ANCHOR_T_BODY  = 0.80;
+  // Anchors & holds
+  const ANCHOR_T_TITLE  = 0.30, ANCHOR_T_BODY  = 0.80;
   const ANCHOR_RADIUS_TITLE = 0.18, ANCHOR_RADIUS_BODY  = 0.32;
   const PULL_TITLE = 0.68, PULL_BODY  = 0.92;
   const BODY_HOLD_MS = 650, HOLD_SPEED_THRESHOLD = 0.35;
+
+  // Stop-hold
+  const STOP_HOLD_MS = 900;
+  const STOP_SPEED_THRESHOLD = 0.06;
+  const STOP_NEAR_EXTRA = 0.06;
+
   const SECTION_VH = 205;
 
-  // Canvas 
   const canvas = document.getElementById('scene');
   const ctx = canvas.getContext('2d');
-
-  Object.assign(canvas.style, {
-    position:'fixed', inset:'0', display:'block', width:'100vw', height:'100vh'
-  });
+  Object.assign(canvas.style, { position:'fixed', inset:'0', display:'block', width:'100vw', height:'100vh' });
 
   // Scroll spacer
   const spacer = document.getElementById('scroll-spacer') || (() => {
@@ -48,33 +51,43 @@
   let W = canvas.width = innerWidth;
   let H = canvas.height = innerHeight;
 
-  // ---- Read more button (fixed bottom position with slide-up reveal)
+  // Read more — enhanced style
   const readMore = (() => {
     const a=document.createElement('a');
     a.id='read-more';
-    a.textContent='Read more';
+    a.textContent='Explore the reasoning →';
     a.href=READ_MORE_HREF;
     Object.assign(a.style,{
-      position:'fixed', left:'50%', bottom:'24px', transform:'translate(-50%, 56px)',
+      position:'fixed', left:'50%', bottom:'8vh', transform:'translate(-50%, 56px)',
       zIndex:'20',
-      padding:'14px 22px', borderRadius:'14px',
-      fontSize:'16px', fontWeight:'700', letterSpacing:'0.2px',
-      color:'#0b1220', textDecoration:'none',
-      background:'linear-gradient(180deg,#bfe0ff,#8fbaff)',
-      border:'1px solid rgba(255,255,255,0.7)',
-      boxShadow:'0 10px 28px rgba(56,123,255,0.45), inset 0 0 12px rgba(255,255,255,0.35)',
-      textShadow:'0 1px 0 rgba(255,255,255,0.6)',
-      backdropFilter:'blur(6px)',
+      padding:'16px 26px', borderRadius:'16px',
+      fontSize:'17px', fontWeight:'800', letterSpacing:'0.2px',
+      color:'#0a1222', textDecoration:'none',
+      background:'linear-gradient(180deg,#d9e8ff 0%, #a9c8ff 100%)',
+      border:'1px solid rgba(255,255,255,0.8)',
+      boxShadow:'0 10px 28px rgba(56,123,255,0.35), inset 0 0 12px rgba(255,255,255,0.45)',
+      textShadow:'0 1px 0 rgba(255,255,255,0.7)',
+      backdropFilter:'blur(8px)',
       opacity:'0', pointerEvents:'none',
-      transition:'opacity .45s ease, transform .45s ease, box-shadow .3s ease',
+      transition:'opacity .45s ease, transform .45s ease, box-shadow .25s ease, filter .25s ease',
+      WebkitTapHighlightColor:'transparent',
+      userSelect:'none',
     });
-    a.onmouseenter = () => { a.style.boxShadow = '0 12px 34px rgba(56,123,255,0.55), inset 0 0 14px rgba(255,255,255,0.45)'; };
-    a.onmouseleave = () => { a.style.boxShadow = '0 10px 28px rgba(56,123,255,0.45), inset 0 0 12px rgba(255,255,255,0.35)'; };
+    a.onmouseenter = () => {
+      a.style.boxShadow = '0 14px 36px rgba(56,123,255,0.55), inset 0 0 14px rgba(255,255,255,0.55)';
+      a.style.filter = 'brightness(1.03)';
+    };
+    a.onmouseleave = () => {
+      a.style.boxShadow = '0 10px 28px rgba(56,123,255,0.35), inset 0 0 12px rgba(255,255,255,0.45)';
+      a.style.filter = 'none';
+    };
+    a.onfocus = () => { a.style.outline='none'; a.style.boxShadow='0 0 0 3px rgba(255,255,255,0.9), 0 0 0 6px rgba(56,123,255,0.55)'; };
+    a.onblur  = () => { a.style.boxShadow='0 10px 28px rgba(56,123,255,0.35), inset 0 0 12px rgba(255,255,255,0.45)'; };
     overlay.appendChild(a);
     return a;
   })();
 
-  // ---- Ghost overlay (handoff)
+  // Ghost overlay
   const ghost = (() => {
     const d=document.createElement('div');
     d.className='overlay ghost';
@@ -89,7 +102,6 @@
     return {root:d, k:gK, t:gT, l:gL1, l2:gL2};
   })();
 
-  // Scenes
   const SCENES = [
     { key:"prologue", kicker:"Prologue",
       title:"The world overflows with information.",
@@ -116,14 +128,13 @@
       l1:"Every position carries real commitment.",
       l2:"Trust becomes traceable, measurable, and shared." },
 
-    { key:"c5", kicker:"Chapter V — A Collective Constellation",
-      title:"Millions of ideas, one shared sky.",
-      l1:"Each reflection feeds a greater whole.",
-      l2:"The horizon reveals a vast, collective constellation." },
+    { key:"c5", kicker:"Chapter V — From Voice to Memory",
+      title:"The map unifies — what we test holds.",
+      l1:"Each tried idea becomes an anchor,",
+      l2:"what we trust, we build." },
   ];
   const TOTAL = SCENES.length;
 
-  // Placement overlay 
   const POS = {
     prologue:{ac:'center', ji:'center', ta:'center'},
     c1:{ac:'center', ji:'end',   ta:'right'},
@@ -144,13 +155,11 @@
   const setScrollHeight = () => spacer.style.height = `${SECTION_VH*TOTAL}vh`;
   setScrollHeight();
 
-  // -------- Utils --------
   const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
   const lerp=(a,b,t)=>a+(b-a)*t;
   const ease=(e0,e1,x)=>{ const t=clamp((x-e0)/(e1-e0),0,1); return t*t*(3-2*t); };
   const RND=(a,b)=>Math.random()*(b-a)+a;
   const dist2=(a,b)=>{ const dx=a.x-b.x, dy=a.y-b.y; return dx*dx+dy*dy; };
-
   function cubicBezierY(y1, y2, t){
     const u = 1 - t;
     return (3*u*u*t*y1) + (3*u*t*t*y2) + (t*t*t);
@@ -161,9 +170,9 @@
     return Math.pow(e, 0.92);
   }
 
-  // -------- Timeline state --------
   let smoothY = 0, lastY = 0, lastScrollTime = performance.now();
   let bodyHoldUntil = 0;
+  let stopHoldUntil = 0;
   let shownIdx=-1;
   let handoffNext=null;
 
@@ -181,6 +190,7 @@
     const k = (Math.cos(Math.PI * (n.d / radius)) + 1) / 2;
     return lerp(t, n.a, pull * k);
   }
+
   function TL(){
     const total = document.documentElement.scrollHeight - innerHeight;
     const rawY = clamp(scrollY / Math.max(1, total), 0, 1);
@@ -194,26 +204,53 @@
 
     const localSection = (smoothY * TOTAL) % 1;
     const n = nearestAnchorLocal(localSection);
-    const radius = n.type === 'body' ? ANCHOR_RADIUS_BODY : ANCHOR_RADIUS_TITLE;
-    const near = 1 - Math.max(0, Math.min(1, n.d / radius));
-
-    const base = 0.12 + 0.26 * Math.min(1, speed / 2);
-    const anchorFactor = n.type === 'body' ? 0.48 : 0.60;
-    let alpha = clamp(base * (anchorFactor + (1 - anchorFactor) * (1 - near)), 0.08, 0.30);
+    const radius = (n.type === 'body' ? ANCHOR_RADIUS_BODY : ANCHOR_RADIUS_TITLE);
+    const near = n.d < (radius + STOP_NEAR_EXTRA);
 
     if (n.type === 'body' && n.d < radius && speed > HOLD_SPEED_THRESHOLD && now > bodyHoldUntil) {
       bodyHoldUntil = now + BODY_HOLD_MS;
     }
-    const holdActive = now < bodyHoldUntil && n.type === 'body';
-    if (holdActive) alpha = Math.max(0.05, alpha * 0.45);
+    const bodyHoldActive = (now < bodyHoldUntil);
+
+    // Stop hold
+    if (near && speed < STOP_SPEED_THRESHOLD && now > stopHoldUntil) {
+      stopHoldUntil = now + STOP_HOLD_MS;
+    }
+    const stopHoldActive = (now < stopHoldUntil);
+
+    // Smooth scrolling
+    const base = 0.12 + 0.26 * Math.min(1, speed / 2);
+    const anchorFactor = n.type === 'body' ? 0.48 : 0.60;
+    let alpha = clamp(base * (anchorFactor + (1 - anchorFactor) * (1 - Math.min(1, n.d / radius))), 0.08, 0.30);
+    if (bodyHoldActive) alpha = Math.max(0.05, alpha * 0.45);
+    if (stopHoldActive) alpha = Math.max(0.04, alpha * 0.38);
 
     smoothY = lerp(smoothY, rawY, 1 - Math.exp(-alpha));
 
+    // Local section t
     const p = smoothY * TOTAL;
     let idx = Math.floor(p); if (idx >= TOTAL) idx = TOTAL - 1;
     let t = p - idx;
+
+    // Soft snap
     t = snapLocalT(t);
-    if (holdActive) t = lerp(t, ANCHOR_T_BODY, 0.88);
+
+    let tTitle = t;
+    let tBody  = t;
+
+    if (stopHoldActive) {
+      const pullK = 0.92;
+      const target = (Math.abs(t - ANCHOR_T_TITLE) <= Math.abs(t - ANCHOR_T_BODY)) ? ANCHOR_T_TITLE : ANCHOR_T_BODY;
+      tTitle = lerp(tTitle, target, pullK);
+      tBody  = lerp(tBody,  ANCHOR_T_BODY, 0.96);
+    }
+    if (bodyHoldActive) {
+      tBody = lerp(tBody, ANCHOR_T_BODY, 0.92);
+    }
+
+    // expose to stageText
+    stageText._tTitle = tTitle;
+    stageText._tBody  = tBody;
 
     return { idx, t, dt, now };
   }
@@ -308,7 +345,6 @@
     const sy = (cyOverride ?? cy) + baseR * s.y;
     return { x: lerp(nodes[i].x, sx, k), y: lerp(nodes[i].y, sy, k), z: s.z };
   }
-  let sphereK = 0;
 
   // Weave target
   function weaveTarget(idx, t) {
@@ -337,10 +373,9 @@
     return revealP;
   }
 
-  // Edges + pulses (2D/sphere) 
   function endpointsForEdge(e){
-    if(sphereK>0){
-      const PA = projectToSphere(e.i, sphereK), PB = projectToSphere(e.j, sphereK);
+    if((projectToSphere._k||0)>0){
+      const PA = projectToSphere(e.i, projectToSphere._k), PB = projectToSphere(e.j, projectToSphere._k);
       return [PA, PB, (Math.max(0,PA.z)+Math.max(0,PB.z))/2];
     }
     return [nodes[e.i], nodes[e.j], 0];
@@ -370,7 +405,9 @@
       const growBase = clamp((p - bornAdj) / denom, 0, 1);
 
       const [A,B,depth] = endpointsForEdge(e);
-      const alphaBase = (sphereK>0) ? lerp(0.15, 0.30, depth) : (idx<=1?0.14: idx===2?0.20: (idx===3?0.24:0.30));
+      const alphaBase = ((projectToSphere._k||0)>0)
+        ? lerp(0.15, 0.30, depth)
+        : (idx<=1?0.14: idx===2?0.20: (idx===3?0.24:0.30));
 
       ctx.strokeStyle=`rgba(120,165,255,${alphaBase})`;
       ctx.lineWidth=1.05;
@@ -390,7 +427,7 @@
     }
   }
 
-  // BG points only 
+  // Background points
   function drawBackgroundPoints(alpha){
     for(let i=0;i<N;i++){
       ctx.fillStyle=`rgba(157,180,255,${alpha})`;
@@ -398,7 +435,7 @@
     }
   }
 
-  // Sphere helpers 
+  // Sphere helpers
   function drawSphereEdgesWithPulses(k, cx, cy, scale, dt){
     if(k<=0) return;
     for(let ei=0; ei<edges.length; ei++){
@@ -445,7 +482,7 @@
     ctx.restore();
   }
 
-  // Clone staging (layout)
+  // Clone staging
   function buildCloneDefs(){
     return [
       { target:{x:W*0.28, y:H*0.74}, scale:0.92, delay:0.18 },
@@ -478,14 +515,14 @@
     mega.cx = W*0.5; mega.cy = H*0.52; mega.k = 0.0;
   }
 
-  // ---- Anchor and trail for the main sphere (C4)
+  // Main sphere anchor (C4)
   const mainSphereAnchor = {
     theta: RND(0, Math.PI*2),
     phi: RND(-Math.PI/2, Math.PI/2),
     attached: false, tau:0, prev:null
   };
 
-  // ---- Satellites
+  // Satellites
   function buildSatellites(){
     return [
       { x: W*0.07, y: H*0.08, scale: 0.78 },
@@ -494,94 +531,114 @@
   }
   let satellites = buildSatellites();
 
-  // -------- Text (incl. C4->C5 orchestration) --------
-  function stageText(i,t, c4ToC5Out=0, c5In=0){
-    const key=SCENES[i].key;
+  // Text staging
+  function stageText(i, t, c4ToC5Out = 0, c5In = 0) {
+    const key = SCENES[i].key;
 
-    const ENTER = H*0.45;
-    const EXIT_TITLE = H*1.10;
-    const EXIT_BODY  = H*1.08;
+    // Y refs
+    const ENTER_Y = H * 1.10;   // spawn bottom
+    const FIXED_Y = 0;          // reading position
+    const EXIT_Y  = -H * 1.10;  // despawn top
 
-    if(key==="prologue"){
-      const up = - (H * 0.95) * ease(0.05,0.95,t);
-      [kicker,title,l1,l2].forEach(el => { el.style.opacity = 1; el.style.transform = `translateY(${up}px)`; });
-      [ghost.k, ghost.t, ghost.l, ghost.l2].forEach(el=> primeEl(el, 45*H/100, 0));
-      stageText._ch1BodyIn=0; stageText._ch1TitleIn=0; stageText._ch3BodyIn=0; stageText._ch3TitleIn=0; stageText._out=0; stageText._ghostFor=null; return;
+    // Windows
+    const IN_START  = 0.00, IN_END  = 0.30;
+    const OUT_START = 0.85, OUT_END = 1.00;
+
+    const tTitle = stageText._tTitle ?? t;
+    const tBody  = stageText._tBody  ?? t;
+
+    const eInTitle  = (x)=> ease(IN_START,  IN_END,  x);
+    const eOutTitle = (x)=> ease(OUT_START, OUT_END, x);
+
+    // Prologue = continuous upward drift
+    if (key === "prologue") {
+      const up = - (H * 0.95) * ease(0.05, 0.95, t);
+      [kicker, title, l1, l2].forEach(el => {
+        el.style.opacity = 1;
+        el.style.transform = `translateY(${up}px)`;
+      });
+      [ghost.k, ghost.t, ghost.l, ghost.l2].forEach(el => {
+        el.style.opacity = 0; el.style.transform = `translateY(${45 * H / 100}px)`;
+      });
+      stageText._out = 0; stageText._ghostFor = null;
+      return;
     }
 
-    // Entrées (C2 corrigé pour éviter le flash des lignes)
-    const aTitleIn = ease(0.00,0.30,t);
-    const aBodyIn  =
-      (key==="c1") ? ease(0.45,0.82,t) :
-      (key==="c2") ? ease(0.56,0.90,t) :
-                     ease(0.40,0.80,t);
-
-    let aOut = ease(0.85,1.00,t);
-    if(key==="c4"){ aOut = clamp( Math.max(aOut, c4ToC5Out), 0, 1 ); }
-
-    if(key==="c5"){
-      const inK = c5In;
-      const y = lerp(H*1.10, 0, inK);
-      const op = inK;
+    // C5 driven by c5In
+    if (key === "c5") {
+      const inK = Math.max(0, Math.min(1, c5In));
+      const y = lerp(ENTER_Y, FIXED_Y, inK);
+      const op = (inK > 0.01) ? 1 : 0;
+      const sc = 0.985 + 0.015 * inK;
       placeForKey('c5');
-      [kicker,title,l1,l2].forEach(el => { el.style.transform = `translateY(${y}px)`; el.style.opacity = op; });
-      stageText._ghostFor = null; stageText._out = 0; return;
+      [kicker, title, l1, l2].forEach(el => {
+        el.style.transform = `translateY(${y}px) scale(${sc})`;
+        el.style.opacity = op;
+      });
+      title.style.textShadow = '0 6px 24px rgba(100,160,255,0.22)';
+      stageText._ghostFor = null;
+      stageText._out = 0;
+      return;
     }
 
-    // Positionnement standard
-    let titleY = (1-aTitleIn)*ENTER + (-EXIT_TITLE)*aOut;
-    let bodyY  = (1-aBodyIn )*ENTER + (-EXIT_BODY )*aOut;
-
-    // C2: cacher l1/l2 tant que le titre n’est pas posé
-    let titleOp = aTitleIn, bodyOp  = aBodyIn;
-    if (key==="c2" && aTitleIn < 0.92) { bodyOp = 0; bodyY = ENTER + (H * 0.30); }
-
-    kicker.style.opacity = titleOp;
-    title .style.opacity = titleOp;
-    l1    .style.opacity = bodyOp;
-    l2    .style.opacity = bodyOp;
-
+    // Synchronized display for C1–C4
     placeForKey(key);
-    kicker.style.transform = `translateY(${titleY}px)`;
-    title .style.transform = `translateY(${titleY}px)`;
-    l1    .style.transform = `translateY(${bodyY }px)`;
-    l2    .style.transform = `translateY(${bodyY }px)`;
 
-    // Ghost (handoff standard)
-    if(i < TOTAL-1){
-      const nextIdx = i+1;
-      if(!stageText._ghostFor || stageText._ghostFor !== nextIdx){
+    const uIn  = eInTitle(tTitle);
+    const uOut = eOutTitle(tTitle);
+
+    const yUnified = lerp(ENTER_Y, FIXED_Y, uIn) + lerp(0, EXIT_Y, uOut);
+
+    const onScreen = (y)=> y <= ENTER_Y - 1 && y >= EXIT_Y + 1;
+    const op = onScreen(yUnified) ? 1 : 0;
+
+    const sc = 0.985 + 0.015 * Math.min(1, uIn * (1 - uOut));
+    const tfm = `translateY(${yUnified}px) scale(${sc})`;
+
+    kicker.style.transform = tfm;
+    title .style.transform = tfm;
+    l1    .style.transform = tfm;
+    l2    .style.transform = tfm;
+
+    kicker.style.opacity = op;
+    title .style.opacity = op;
+    l1    .style.opacity = op;
+    l2    .style.opacity = op;
+
+    // Ghost handoff
+    if (i < TOTAL - 1) {
+      const nextIdx = i + 1;
+      if (!stageText._ghostFor || stageText._ghostFor !== nextIdx) {
         setGhostCopy(nextIdx); stageText._ghostFor = nextIdx;
       }
-      const baseK = clamp((-bodyY) / (H*0.95), 0, 1);
-      const gY = (1 - baseK) * ENTER; const gOp = baseK;
+      const baseK = Math.max(0, Math.min(1, (-yUnified) / (H * 0.95)));
+      const gY = (1 - baseK) * (H * 0.45);
+      const gOp = baseK;
 
       ghost.k.style.opacity = gOp; ghost.t.style.opacity = gOp;
-      ghost.l.style.opacity = gOp; ghost.l2.style.opacity= gOp;
+      ghost.l.style.opacity = gOp; ghost.l2.style.opacity = gOp;
 
       ghost.k.style.transform = `translateY(${gY}px)`;
       ghost.t.style.transform = `translateY(${gY}px)`;
       ghost.l.style.transform = `translateY(${gY}px)`;
-      ghost.l2.style.transform= `translateY(${gY}px)`;
+      ghost.l2.style.transform = `translateY(${gY}px)`;
 
-      if(gOp > 0.985){ handoffNext = nextIdx; }
+      if (gOp > 0.985) { handoffNext = nextIdx; }
     } else {
-      [ghost.k, ghost.t, ghost.l, ghost.l2].forEach(el=> primeEl(el, 45*H/100, 0));
+      [ghost.k, ghost.t, ghost.l, ghost.l2].forEach(el => {
+        el.style.opacity = 0;
+        el.style.transform = `translateY(${45 * H / 100}px)`;
+      });
       stageText._ghostFor = null;
     }
 
-    stageText._ch1BodyIn  = (key==="c1") ? aBodyIn  : 0;
-    stageText._ch1TitleIn = (key==="c1") ? aTitleIn : 0;
-    stageText._ch3BodyIn  = (key==="c3") ? aBodyIn  : 0;
-    stageText._ch3TitleIn = (key==="c3") ? aTitleIn : 0;
-    stageText._out        = aOut;
+    stageText._out = eOutTitle(tTitle);
   }
 
   // ===== Loop =====
   requestAnimationFrame(function draw(){
     const {idx,t,dt,now} = TL(); setCopyFromIndex(idx);
 
-    // BG gradient
     const BG = [
       {a:'#03050a', b:'#0a0f19'},
       {a:'#050814', b:'#0d1422'},
@@ -604,7 +661,7 @@
     g.addColorStop(0, ca); g.addColorStop(1, cb);
     ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
 
-    // Physics (pre-C4)
+    // Motion (pre-C4)
     (function(){
       let chaos=0;
       if(idx===0){ chaos = lerp(1.6, 0.18, ease(0.05,0.95,t)); }
@@ -628,52 +685,68 @@
     const targetReveal = weaveTarget(idx,t);
     const reveal = stepRevealTowards(targetReveal, dt, idx);
 
-    // ===== General rendering =====
-    const isWorld = (idx>=4); // C4 & C5
+    // World sections (C4 & C5)
+    const isWorld = (idx>=4);
 
-    // CH1 - initial link
     if(idx===1){
-      const bodyIn = stageText._ch1BodyIn||0, aTitleIn = stageText._ch1TitleIn||0, out=stageText._out||0;
+      // Local progression (independent from the text):
+      // - A appears: from 0.18 -> 0.30
+      // - Link A->B forms: from 0.42 -> 0.86
+      const appearA = Math.max(0, Math.min(1, (t - 0.18) / 0.12));
+      const linkGrow = Math.max(0, Math.min(1, (t - 0.42) / 0.44));
+
+      // Point A (dynamic center)
       const CCx=W*0.5, CCy=H*0.5;
-      const jx = Math.sin(now*0.003)*3*(1-out), jy = Math.cos(now*0.0023)*2*(1-out);
+      const jx = Math.sin(now*0.003)*3*(1- (stageText._out||0));
+      const jy = Math.cos(now*0.0023)*2*(1- (stageText._out||0));
       const PA = { x: CCx + jx, y: CCy + jy };
+
+      // Point B (node near the center)
       const B = nodes[ch1.b];
 
-      const pulseAlive = bodyIn < 0.98;
-      const pulse = pulseAlive ? (0.5 + 0.5*Math.sin(now*0.008)) : 0;
-      const aAlpha  = Math.min(1, 0.55 + 0.35*aTitleIn + (pulseAlive ? 0.10*pulse : 0));
-      const aRadius = (nodes[ch1.a].r) + (pulseAlive ? 1.1*pulse : 0);
+      // Draw point A with a pulse driven by appearA
+      const pulse = 0.5 + 0.5*Math.sin(now*0.008);
+      const aAlpha  = Math.min(1, 0.30 + 0.60*appearA + 0.10*pulse*appearA);
+      const aRadius = Math.max(1.2, nodes[ch1.a].r * (1.2 + 1.2*appearA*pulse));
 
       ctx.fillStyle=`rgba(255,255,255,${aAlpha})`;
       ctx.beginPath(); ctx.arc(PA.x,PA.y,aRadius,0,Math.PI*2); ctx.fill();
 
+      // Point B (stable)
       ctx.fillStyle='rgba(157,180,255,0.92)';
       ctx.beginPath(); ctx.arc(B.x,B.y,B.r,0,Math.PI*2); ctx.fill();
 
-      const grow = clamp((bodyIn - 0.02) / 0.98, 0, 1);
-      if(grow>0){
-        const width = lerp(2.0, 1.05, clamp(out*1.2,0,1));
-        const alpha = lerp(0.60, 0.25, out);
-        ctx.strokeStyle=`rgba(120,165,255,${alpha})`; ctx.lineWidth=width;
-        ctx.beginPath(); ctx.moveTo(PA.x,PA.y);
-        ctx.lineTo(lerp(PA.x,B.x,grow), lerp(PA.y,B.y,grow));
-        ctx.stroke();
+      // Link A->B grows with scroll (linkGrow)
+      if(linkGrow>0){
+        const width = lerp(2.2, 1.05, linkGrow);           // narrows toward the end of growth
+        const alpha = lerp(0.65, 0.28, linkGrow);          // becomes lighter toward the end
+        ctx.strokeStyle=`rgba(120,165,255,${alpha})`; 
+        ctx.lineWidth=width;
 
-        if(grow>0.92){
-          const u=(now*0.0006)%1; const qx=lerp(PA.x,B.x,u), qy=lerp(PA.y,B.y,u);
-          ctx.fillStyle='rgba(160,205,255,0.95)'; ctx.beginPath(); ctx.arc(qx,qy,2.0,0,Math.PI*2); ctx.fill();
+        const gx = lerp(PA.x, B.x, linkGrow);
+        const gy = lerp(PA.y, B.y, linkGrow);
+        ctx.beginPath(); ctx.moveTo(PA.x,PA.y); ctx.lineTo(gx,gy); ctx.stroke();
+
+        // Small pulse travels along the portion already woven
+        if(linkGrow>0.05){
+          const u=(now*0.0006)%Math.max(0.001, linkGrow);
+          const qx=lerp(PA.x, B.x, u), qy=lerp(PA.y, B.y, u);
+          ctx.fillStyle='rgba(160,205,255,0.95)';
+          ctx.beginPath(); ctx.arc(qx,qy,2.0,0,Math.PI*2); ctx.fill();
         }
       }
 
-      if(!ABAdded && bodyIn>0.35){
+      // Add edge A-B to the pool only after partial growth
+      if(!ABAdded && linkGrow>0.35){
         edges.push({ i: ch1.a, j: ch1.b, born: 0, jitter:RND(-0.04,0.04), dir:(Math.random()<0.5?0:1) });
-        edgePulses.push(null); ABAdded = true;
+        edgePulses.push(null); 
+        ABAdded = true;
       }
     }
 
-    // BG & edges for < C4
     if(!isWorld){
       drawBackgroundPoints(idx===0?0.70:0.32);
+      projectToSphere._k = 0;
       drawEdgesWithPulses(reveal, dt, idx);
       for(let i=0;i<N;i++){
         const alpha=(idx===0?0.70:0.78);
@@ -828,10 +901,9 @@
           renderSpherePoints(1, s.x, s.y, s.scale);
         }
 
-        // Progress attach pour orchestrer le texte/bouton
         let sum = mainSphereAnchor.tau || 0, cnt = 1;
         for(const c of cloneDefs){ sum += (c.tau||0); cnt++; }
-        attachP = clamp(sum / Math.max(1,cnt), 0, 1);
+        attachP = Math.max(0, Math.min(1, sum / Math.max(1,cnt)));
       } else {
         attachP = 0;
       }
@@ -841,30 +913,26 @@
     const c4ToC5Out = attachP;
     const c5In      = easeCinema(attachP);
 
-    // CH3 highlight
-    function computeDegrees(progress){ const deg = new Array(N).fill(0); for(const e of edges){ if(e.born<=progress){ deg[e.i]++; deg[e.j]++; } } return deg; }
+    // C3 highlight (kept)
     if(idx===3){
-      const glow = Math.max(stageText._ch3TitleIn||0, stageText._ch3BodyIn||0);
-      if(glow>0){
-        const deg = computeDegrees(1.0);
-        const sorted=[...deg].sort((a,b)=>b-a);
-        const topCount=Math.max(1,Math.floor(N*0.12));
-        const cutoff=sorted[topCount-1]||0;
+      const deg = (function(){ const d=new Array(N).fill(0); for(const e of edges){ d[e.i]++; d[e.j]++; } return d;})();
+      const sorted=[...deg].sort((a,b)=>b-a);
+      const topCount=Math.max(1,Math.floor(N*0.12));
+      const cutoff=sorted[topCount-1]||0;
 
-        ctx.save(); ctx.globalCompositeOperation = 'screen';
-        const pulse = 0.5 + 0.5*Math.sin(performance.now()*0.005);
-        for(let i=0;i<N;i++) if(deg[i]>=cutoff){
-          const n=nodes[i];
-          const amp  = 1.0 + 0.6*pulse;
-          ctx.fillStyle=`rgba(90,170,255,0.65)`;
-          ctx.beginPath(); ctx.arc(n.x,n.y,n.r*4.2*amp,0,Math.PI*2); ctx.fill();
-          ctx.fillStyle=`rgba(130,200,255,0.75)`;
-          ctx.beginPath(); ctx.arc(n.x,n.y,n.r*2.6*amp,0,Math.PI*2); ctx.fill();
-          ctx.fillStyle=`rgba(220,240,255,0.95)`;
-          ctx.beginPath(); ctx.arc(n.x,n.y,Math.max(1.6, n.r*1.25*amp),0,Math.PI*2); ctx.fill();
-        }
-        ctx.restore();
+      ctx.save(); ctx.globalCompositeOperation = 'screen';
+      const pulse = 0.5 + 0.5*Math.sin(performance.now()*0.005);
+      for(let i=0;i<N;i++) if(deg[i]>=cutoff){
+        const n=nodes[i];
+        const amp  = 1.0 + 0.6*pulse;
+        ctx.fillStyle=`rgba(90,170,255,0.65)`;
+        ctx.beginPath(); ctx.arc(n.x,n.y,n.r*4.2*amp,0,Math.PI*2); ctx.fill();
+        ctx.fillStyle=`rgba(130,200,255,0.75)`;
+        ctx.beginPath(); ctx.arc(n.x,n.y,n.r*2.6*amp,0,Math.PI*2); ctx.fill();
+        ctx.fillStyle=`rgba(220,240,255,0.95)`;
+        ctx.beginPath(); ctx.arc(n.x,n.y,Math.max(1.6, n.r*1.25*amp),0,Math.PI*2); ctx.fill();
       }
+      ctx.restore();
     }
 
     // Text staging
@@ -876,17 +944,18 @@
       stageText(idx, t, 0, 0);
     }
 
-    // Read more button
+    // Read more (based on c5In + tiny scale)
     const isC5 = (SCENES[idx]?.key === 'c5');
     const btnK = isC5 ? Math.max(0, Math.min(1, c5In)) : 0;
     const btnVisible = btnK > 0.02;
+    const btnScale = 0.98 + 0.02*btnK;
 
     readMore.style.pointerEvents = btnVisible ? 'auto' : 'none';
     readMore.style.opacity = btnVisible ? String(Math.min(1, btnK*1.15)) : '0';
-    readMore.style.transform = `translate(-50%, ${56*(1-btnK)}px)`;
+    readMore.style.transform = `translate(-50%, ${56*(1-btnK)}px) scale(${btnScale})`;
 
-    // Reset si retour avant C4
-    if(!isWorld && (endMode || megaMode)){
+    // Reset if user scrolls back before C4
+    if(!isWorld && (draw._endMode||false || draw._megaMode||false)){
       endMode=false; megaMode=false; endCamera=0; mega.k=0;
       for(const c of cloneDefs){ c.attached=false; c.attachK=0; c.tau=0; }
       mainSphereAnchor.attached = false; mainSphereAnchor.tau=0; mainSphereAnchor.prev=null;
@@ -894,6 +963,7 @@
       readMore.style.transform='translate(-50%, 56px)';
       readMore.style.pointerEvents='none';
     }
+    draw._endMode=endMode; draw._megaMode=megaMode;
 
     requestAnimationFrame(draw);
   });
@@ -911,7 +981,7 @@
   addEventListener('resize', () => {
     W = canvas.width = innerWidth;
     H = canvas.height = innerHeight;
-    setScrollHeight();
+    spacer.style.height = `${SECTION_VH*TOTAL}vh`;
     cloneDefs = buildCloneDefs();
     satellites = buildSatellites();
   });
