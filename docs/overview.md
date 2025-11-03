@@ -7,13 +7,42 @@ description: Overview of the Debate Market — transforming debate into structur
 
 # Overview — Debate Market
 
-## Why
+## Context
 
-Online debates typically vanish into feeds, repeat endlessly, and do not accumulate shared understanding.  
-Nothing is structured, nothing persists, and nothing improves collectively.
+Today, online debates appear and then dissolve into feeds.  
+They repeat endlessly, fail to accumulate shared understanding, and rarely build on each other.  
+Nothing is structured. Nothing persists. Nothing improves collectively.
 
-This system proposes a different model: **turn debate into structured, reusable reasoning.**  
-Each contribution enriches a shared and portable memory rather than disappearing.
+And yet, strong signals around us point toward a different direction:
+
+- **Kialo** shows that debate can be structured into branches of supporting and opposing arguments —  
+  but the reasoning remains locked inside a single platform, without incentives, portability, or compounding.
+
+- The recent **Polymarket × Twitter** momentum demonstrates that when beliefs are expressed publicly, tested over time, and tied to skin in the game,  
+  a clearer signal emerges.  
+  A strong validation that **debate + market incentives + visibility** outperform ephemeral opinion feeds.
+
+- Tools like **Claimify (Microsoft)** reveal a parallel shift: extracting claims from unstructured conversation.  
+  A push toward turning discourse into machine-readable meaning — but still siloed, without a shared graph or incentive layer.
+
+Three forces are converging:
+
+- Structuring arguments (Kialo)  
+- Surfacing belief signals (Polymarket)  
+- Extracting claims from discussion (Claimify)
+
+Yet today, they remain **fragmented, ephemeral, and platform-bound**.
+
+This project explores a different path:
+
+> **Turn debate into structured, reusable reasoning.**
+
+Each contribution enriches a shared and portable memory instead of disappearing in a scroll.  
+Every argument can become a new discussion, a durable signal, and a node in a living graph.
+
+Instead of disposable debates, a **mental infrastructure** where ideas breathe, evolve, and connect —  
+supporting collective sense-making that does not vanish.
+
 
 ---
 
@@ -39,13 +68,14 @@ flowchart TD
     P --> T
     N --> T
     T --> ND["This claim can become a new debate"]
-    T --> G["Knowledge graph"]
+    T --> G["Intuition Knowledge Graph"]
     ND --> S2["New debate"]
-    G --> REUSE["Reuse in other debates"]
-    G --> NAV["Browse reasoning paths"]
-    G --> PM["If future outcome → Prediction market"]
-    G --> AG["Agents learn reasoning style"]
-    PM --> OR["Resolution by credible participants (trust + expertise)"]
+    G --> EXT["External Prediction Market"]
+    G --> ADV["Advantages"]
+    ADV --> PORT["Portability (agent info base)"]
+    ADV --> COMP["Composability"]
+    ADV --> DISC["Discoverability"]
+    EXT --> OR["Resolution by credible participants (trust + expertise)"]
 ```
 
 ---
@@ -65,7 +95,7 @@ The interface encourages clarity and connection, not reaction.
 
 ## How it works
 
-- A claim is directly stored **as a triple**
+- A claim is directly stored **as a semantic triple**
 - The system records relationships of meaning, not just text
 - Arguments accumulate and connect across debates
 - The result is a shared, navigable memory of reasoning

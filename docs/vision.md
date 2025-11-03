@@ -39,7 +39,7 @@ These are **possible future layers**, not required for the core system:
 
 ### Debate → Prediction layer
 For debates tied to real future outcomes:
-- A debate can convert into a prediction market
+- A debate can convert into a resolving prediction market
 - With a defined resolution date
 
 ### Resolution by credible contributors
@@ -50,15 +50,23 @@ Resolution can be informed by participants who:
 
 Oracles **emerge from the graph**, not by appointment.
 
-### Cognitive identity & agent support
+### Reasoning identity & agent support
 Over time, the system can support:
 
-- Personal reasoning profiles
-- Navigation based on your logic style
-- AI that understands how you think, not just what you type
-- Memory of positions, arguments, and evolution
+- Personal reasoning profiles  
+- Navigation based on your logic style  
+- AI that understands how you think, not just what you type  
+- Memory of positions, arguments, and evolution  
 
-The platform can become a layer of **cognitive identity**, not just a discussion space.
+The system can form a **reasoning identity**, a durable signal of how someone thinks, evolves, and maintains coherence.
+
+This identity does not come from self-presentation, but from **what one constructs, demonstrates, and refines over time**.
+
+As this layer strengthens, it can also support social and professional trust,  
+reinforcing collaboration, credibility, and alignment based on reasoning quality,  
+coherence, and intellectual integrity — not noise.
+
+The platform becomes an **infrastructure for reasoning**, enabling people, agents, and systems to interact on a foundation of logic, consistency, and trust.
 
 ## Ambition
 
