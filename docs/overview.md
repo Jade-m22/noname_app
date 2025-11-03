@@ -13,7 +13,7 @@ Online debates typically vanish into feeds, repeat endlessly, and do not accumul
 Nothing is structured, nothing persists, and nothing improves collectively.
 
 This system proposes a different model: **turn debate into structured, reusable reasoning.**  
-Each contribution enriches a shared memory rather than disappearing.
+Each contribution enriches a shared and portable memory rather than disappearing.
 
 ---
 
@@ -22,7 +22,7 @@ Each contribution enriches a shared memory rather than disappearing.
 - A debate starts with a **clear assertion**
 - Participants add claims **for** or **against**
 - A debate can also be opened **without taking a position** at first
-- **Each claim = a triple on-chain** (Subject → Relation → Object)
+- **Each claim = a triple on-chain** (Subject → Predicate → Object)
 - Any claim can become the starting point for a new debate
 - Reasoning grows **recursively**, not linearly
 

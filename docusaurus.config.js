@@ -3,7 +3,7 @@ import {themes as prismThemes} from 'prism-react-renderer';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'DBMarket',
+  title: 'Debate Market',
   tagline: 'From Noise to Trust',
   favicon: 'img/favicon.ico',
 
@@ -53,8 +53,8 @@ const config = {
     image: 'img/docusaurus-social-card.jpg',
     colorMode: { respectPrefersColorScheme: true },
     navbar: {
-      title: 'DBMarket',
-      logo: { alt: 'DBMarket Logo', src: 'img/logo.svg' },
+      title: 'Debate Market',
+      logo: { alt: 'Debate Market Logo', src: 'img/logo.svg' },
       items: [
         { type: 'docSidebar', sidebarId: 'tutorialSidebar', position: 'left', label: 'Docs' },
         { to: '/blog', label: 'Blog', position: 'left' },
@@ -75,7 +75,7 @@ const config = {
           { label: 'GitHub', href: 'https://github.com/jademichel/noname_app' },
         ]},
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} DBMarket. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Debate Market. Built with Docusaurus.`,
     },
     prism: { theme: prismThemes.github, darkTheme: prismThemes.dracula },
   }),
