@@ -67,7 +67,7 @@ flowchart TD
     C --> T["Claim = Triple on-chain"]
     P --> T
     N --> T
-    T --> ND["This claim can become a new debate"]
+    T --> ND["This claim can trigger or spark a new debate"]
     T --> G["Intuition Knowledge Graph"]
     ND --> S2["New debate"]
     G --> EXT["External Prediction Market"]
@@ -80,16 +80,30 @@ flowchart TD
 
 ---
 
-## User experience
+## User journey
 
-Users see:
+### Manual creation mode
+Users write structured claims directly and assign **for** or **against**.
 
-- The initial assertion
-- For-claims and against-claims
-- Deeper levels of responses and justifications
-- A structured reasoning map rather than a scrolling feed
+### Assisted creation mode
+Users write naturally; the system helps convert free text into structured claims:
 
-The interface encourages clarity and connection, not reaction.
+1. User writes an argument in natural language  
+2. Assistant proposes structured claims and positions  
+3. User reviews, edits, approves, or rejects  
+4. Approved claims are stored as triples  
+
+The human always stays in control.
+
+### Supporting and voting
+Participants can highlight, support, or challenge key claims without creating new branches.
+
+### Reading and exploring
+Users can:
+- read the claim tree  
+- explore deeper justifications and counterpoints  
+- navigate reasoning paths instead of scrolling feed noise
+
 
 ---
 
@@ -101,23 +115,6 @@ The interface encourages clarity and connection, not reaction.
 - The result is a shared, navigable memory of reasoning
 
 Debate becomes **a growing structure of thought**, not an ephemeral thread.
-
----
-
-## Contribution modes
-
-### Manual mode
-Write claims directly and assign them as **for** or **against**.
-
-### Assisted mode
-Write naturally; the system helps transform free text into structured claims:
-
-1. User types an argument in natural language  
-2. The assistant extracts proposed claims and positions (for/against)  
-3. The user reviews, edits, approves, or rejects each suggestion  
-4. Approved claims are saved as triples  
-
-The assistant helps organize thoughts — **the human remains the decision-maker**.
 
 ---
 
